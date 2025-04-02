@@ -304,6 +304,7 @@ async function getQueryEmbedding(query) {
 }
 
 // Function to query the LLM (Google Gemini or any other LLM)
+// Function to query the LLM (Google Gemini or any other LLM)
 async function queryLLMWithEmbeddings(embeddings, query) {
   const ai = new GoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY });
   console.log("Querying LLM with embeddings...");
@@ -314,10 +315,10 @@ async function queryLLMWithEmbeddings(embeddings, query) {
     return { error: "No relevant context found." };
   }
 
-  // Construct the context from the closest documents (using text, not raw embeddings)
+  // Construct the context from the closest documents (using text and document source)
   const context = embeddings
     .slice(0, 3) // Use top 3 most similar embeddings
-    .map((doc) => `Document: "${doc.sentence}", Similarity: ${doc.similarity}`)
+    .map((doc, index) => `Document ${index + 1}: "${doc.sentence}", Similarity: ${doc.similarity}`)
     .join("\n");
 
   // Log the context and query for debugging purposes
@@ -329,13 +330,13 @@ async function queryLLMWithEmbeddings(embeddings, query) {
   }
 
   // Construct the prompt for the LLM
-  const prompt = `Given the following context:\n${context}\n\nAnswer the question: ${query}`;
-  
+  const prompt = `Given the following context:\n${context}\n\nAnswer the question: ${query}\n\nMake sure to mention which document the answer is derived from.`;
+
   try {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
+
     console.log("Response text from LLM:", text);
     return { text };
   } catch (error) {
@@ -343,7 +344,6 @@ async function queryLLMWithEmbeddings(embeddings, query) {
     return { error: "Error generating response." };
   }
 }
-
 
 // Start server
 app.listen(8000, () => {

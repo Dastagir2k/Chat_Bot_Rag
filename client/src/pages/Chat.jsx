@@ -82,9 +82,9 @@ console.log(user_id); // Log the user_id for debugging
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900">
-      <div className="w-full max-w-4xl bg-slate-200 shadow-lg rounded-xl overflow-hidden">
+        <h1 className="text-4xl font-lead text-center text-white py-2">Chat With Your Data</h1>
+      <div className="w-full max-w-4xl bg-slate-600 shadow-lg rounded-xl overflow-hidden">
         {/* Chat Messages Section */}
-        <h1 className="text-2xl font-lead text-center">Chat With your Data</h1>
         <div
           className="p-6 overflow-auto h-96"
           style={{ scrollBehavior: "smooth" }}
@@ -119,7 +119,7 @@ console.log(user_id); // Log the user_id for debugging
         </div>
 
         {/* User Input Section */}
-        <div className="p-6 bg-slate-100 flex items-center">
+        <div className="p-6 bg-slate-400 flex items-cente text-3xl text-black">
           <input
             type="text"
             placeholder="Enter your query"
@@ -137,7 +137,7 @@ console.log(user_id); // Log the user_id for debugging
         </div>
 
         {/* File Upload Section */}
-        <div className="p-6 bg-gray-50 flex items-center">
+        <div className="p-6 bg-slate-400  flex items-center text-white">
           <input
             type="file"
             onChange={handleFileChange}
