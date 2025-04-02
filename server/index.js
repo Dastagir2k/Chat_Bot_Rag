@@ -5,6 +5,10 @@ const fs = require("fs");
 const { GoogleGenAI } = require("@google/genai");
 const { createClient } = require("@supabase/supabase-js");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { scrapeWebsite } = require("./utils/scrapper");
+const { createPrompt } = require("./utils/prompt");
+const { queryLLM } = require("./utils/llm");
+
 
 const pdfParse = require("pdf-parse");
 const e = require("express");
@@ -43,6 +47,31 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+
+
+app.post("/scrape", async (req, res) => {
+  const { websiteUrl } = req.body;
+
+  if (!websiteUrl) {
+    return res.status(400).send("Website URL is required.");
+  }
+
+  try {
+    // Scrape the website
+    const scrapedData = await scrapeWebsite(websiteUrl);
+
+    // Create a prompt for the LLM
+    const prompt = createPrompt(scrapedData);
+
+    // Query the LLM with the prompt
+    const response = await queryLLM(prompt);
+
+    res.json({ response }); // Return the LLM's response
+  } catch (error) {
+    console.error("Error scraping website or querying LLM:", error.message);
+    res.status(500).send("Internal server error.");
+  }
+});
 // Endpoint to upload PDF
 app.post("/upload", upload.single("file"), (req, res) => {
   if (req.file) {

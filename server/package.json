@@ -25,6 +25,7 @@
     "pdf-parse": "^1.1.1",
     "pg": "^8.14.1",
     "pinecone-client": "^2.0.0",
+    "playwright": "^1.51.1",
     "postgres": "^3.4.5"
   }
 }
