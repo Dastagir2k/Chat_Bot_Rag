@@ -70,10 +70,13 @@ const Signup = () => {
   };
 
   return (
+    <div className="text-white bg-gray-900 ">
+      <h1 className="text-3xl text-center">Weclome To GenChat</h1>
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="bg-gray-800 rounded-xl shadow-2xl p-8 w-full max-w-md">
+      
         <h2 className="text-3xl font-bold text-white mb-8 text-center">
-          Create Account
+          Sign Up
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -148,6 +151,7 @@ const Signup = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

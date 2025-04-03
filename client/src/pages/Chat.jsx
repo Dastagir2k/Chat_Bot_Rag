@@ -141,7 +141,7 @@ console.log(user_id); // Log the user_id for debugging
           <input
             type="file"
             onChange={handleFileChange}
-            className="mr-4 p-2 border rounded-lg bg-gray-400 cursor-pointer"
+            className="mr-4 p-2 border rounded-lg bg-gray-600 cursor-pointer"
           />
           <button
             onClick={uploadFile}

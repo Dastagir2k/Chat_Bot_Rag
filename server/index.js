@@ -72,6 +72,8 @@ app.post("/scrape", async (req, res) => {
     res.status(500).send("Internal server error.");
   }
 });
+
+
 // Endpoint to upload PDF
 app.post("/upload", upload.single("file"), (req, res) => {
   if (req.file) {
@@ -359,7 +361,7 @@ async function queryLLMWithEmbeddings(embeddings, query) {
   }
 
   // Construct the prompt for the LLM
-  const prompt = `Given the following context:\n${context}\n\nAnswer the question: ${query}\n\nMake sure to mention which document the answer is derived from.`;
+  const prompt = `Given the following context:\n${context}\n\nAnswer the question: ${query}\n\nMake sure to mention at end  which document the answer is derived from. with the document name  `;
 
   try {
     const result = await model.generateContent(prompt);
